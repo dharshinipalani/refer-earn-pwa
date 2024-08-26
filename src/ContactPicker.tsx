@@ -38,6 +38,7 @@ const ContactPicker: React.FC = () => {
                   {contact.name ? contact.name.join(", ") : "No Name"}
                 </strong>
                 <div>{contact.tel ? contact.tel[0] : "No Phone"}</div>
+                <div>{contact.icon}</div>
               </div>
             </li>
           ))}
