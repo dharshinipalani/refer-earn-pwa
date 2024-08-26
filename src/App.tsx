@@ -1,7 +1,9 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import Header from "./Header";
+import ContactPicker from "./ContactPicker";
 
 function App() {
+ 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <Header />
@@ -11,9 +13,7 @@ function App() {
         width="100%"
         height="30%"
       />
-      <Button variant="contained" color="secondary" size="large">
-        <Typography color="primary">refer</Typography>
-      </Button>
+      <ContactPicker/>
     </Box>
   );
 }
