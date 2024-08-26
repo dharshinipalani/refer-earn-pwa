@@ -27,7 +27,7 @@ const ContactPicker: React.FC = () => {
   return (
     <div>
       <button onClick={handleSelectContacts} disabled={loading}>
-        {loading ? "Loading..." : "Select Contacts"}
+        {loading ? "Loading..." : "Select"}
       </button>
       {contacts.length > 0 && (
         <ul>
@@ -35,7 +35,7 @@ const ContactPicker: React.FC = () => {
             <li key={index}>
               <div>
                 <strong>
-                  {contact.name ? contact.name.join(", ") : "No Name"}
+                  {contact.name ? contact.name : "No Name"}
                 </strong>
                 <div>{contact.tel ? contact.tel[0] : "No Phone"}</div>
                 <div>{contact.icon}</div>
