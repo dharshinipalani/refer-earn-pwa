@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import React, { useState } from "react";
 
 const ContactPicker: React.FC = () => {
@@ -9,10 +8,12 @@ const ContactPicker: React.FC = () => {
     if ("contacts" in navigator && "ContactsManager" in window) {
       try {
         setLoading(true);
-        const allContacts = await (navigator as any).contacts.getAll({
-          multiple: true,
-        });
-        setContacts(allContacts);
+        const props = ["name", "email", "tel"];
+        const selectedContacts = await (navigator as any).contacts.select(
+          props,
+          { multiple: true }
+        );
+        setContacts(selectedContacts);
       } catch (error) {
         console.error("Error fetching contacts:", error);
       } finally {
@@ -28,10 +29,20 @@ const ContactPicker: React.FC = () => {
       <button onClick={handleSelectContacts} disabled={loading}>
         {loading ? "Loading..." : "Select Contacts"}
       </button>
-      {contacts.length > 0 &&
-        contacts.map((contact) => {
-          return <Typography>{contact.name}</Typography>;
-        })}
+      {contacts.length > 0 && (
+        <ul>
+          {contacts.map((contact, index) => (
+            <li key={index}>
+              <div>
+                <strong>
+                  {contact.name ? contact.name.join(", ") : "No Name"}
+                </strong>
+                <div>{contact.tel ? contact.tel[0] : "No Phone"}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
