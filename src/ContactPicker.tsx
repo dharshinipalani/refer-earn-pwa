@@ -8,7 +8,7 @@ const ContactPicker: React.FC = () => {
     if ("contacts" in navigator && "ContactsManager" in window) {
       try {
         setLoading(true);
-        const props = ["name", "email", "tel"];
+        const props = ["name", "email", "tel", "icon"];
         const selectedContacts = await (navigator as any).contacts.select(
           props,
           { multiple: true }
@@ -26,8 +26,8 @@ const ContactPicker: React.FC = () => {
 
   return (
     <div>
-      <button onClick={handleSelectContacts} disabled={loading}>
         {loading ? "Loading..." : "Select"}
+      <button onClick={handleSelectContacts} disabled={loading}>
       </button>
       {contacts.length > 0 && (
         <ul>
