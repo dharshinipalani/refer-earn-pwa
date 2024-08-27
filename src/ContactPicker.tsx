@@ -33,7 +33,7 @@ const ContactPicker: React.FC = () => {
       {contacts.length > 0 &&
         contacts.map((contact, index) => (
           <Box>
-            {contact.icon ? contact.icon : <Avatar>{contact.name[0].charAt(0).toUpperCase()}</Avatar>}
+            {contact.icon.length > 0? contact.icon[0] : <Avatar>{contact.name[0].charAt(0).toUpperCase()}</Avatar>}
             <Box>
               <Typography variant="subtitle1">{contact.name}</Typography>
               <Typography variant="body1">{contact.tel}</Typography>
