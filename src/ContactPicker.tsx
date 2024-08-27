@@ -1,6 +1,5 @@
-import { Avatar, Box, Typography } from "@mui/material";
 import React, { useState } from "react";
-
+import { Box, Avatar, Typography } from "@mui/material"
 const ContactPicker: React.FC = () => {
   const [contacts, setContacts] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -9,7 +8,7 @@ const ContactPicker: React.FC = () => {
     if ("contacts" in navigator && "ContactsManager" in window) {
       try {
         setLoading(true);
-        const props = ["name", "tel" , "icon"];
+        const props = ["name", "email", "tel" , "icon"];
         const selectedContacts = await (navigator as any).contacts.select(
           props,
           { multiple: true }
@@ -30,16 +29,21 @@ const ContactPicker: React.FC = () => {
       <button onClick={handleSelectContacts} disabled={loading}>
         {loading ? "Loading..." : "Select Contacts"}
       </button>
-      {contacts.length > 0 &&
-        contacts.map((contact, index) => (
-          <Box>
-            {contact.icon.length > 0? contact.icon[0] : <Avatar>{contact.name[0].charAt(0).toUpperCase()}</Avatar>}
+      {contacts.length > 0 && (
+          contacts.map((contact, index) => (
             <Box>
-              <Typography variant="subtitle1">{contact.name}</Typography>
-              <Typography variant="body1">{contact.tel}</Typography>
+              {contact.icon.length > 0 ? (
+                contact.icon[0]
+              ) : (
+                <Avatar>{contact.name[0].charAt(0).toUpperCase()}</Avatar>
+              )}
+              <Box>
+                <Typography variant="subtitle1">{contact.name}</Typography>
+                <Typography variant="body1">{contact.tel}</Typography>
+              </Box>
             </Box>
-          </Box>
-        ))}
+          ))
+      )}
     </div>
   );
 };
