@@ -44,6 +44,14 @@ const ContactPicker: React.FC = () => {
             </Box>
           ))
       )}
+      {
+        contacts.length === 0 && (
+          <Typography variant="body1">
+            No contacts selected. Please enable "Allow sharing contacts" in your
+            device's settings.
+          </Typography>
+        )
+      }
     </div>
   );
 };
