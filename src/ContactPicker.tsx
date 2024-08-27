@@ -1,3 +1,4 @@
+import { Avatar, Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 
 const ContactPicker: React.FC = () => {
@@ -8,7 +9,7 @@ const ContactPicker: React.FC = () => {
     if ("contacts" in navigator && "ContactsManager" in window) {
       try {
         setLoading(true);
-        const props = ["name", "email", "tel", "icon"];
+        const props = ["name", "tel" , "icon"];
         const selectedContacts = await (navigator as any).contacts.select(
           props,
           { multiple: true }
@@ -26,24 +27,19 @@ const ContactPicker: React.FC = () => {
 
   return (
     <div>
-        {loading ? "Loading..." : "Select"}
       <button onClick={handleSelectContacts} disabled={loading}>
+        {loading ? "Loading..." : "Select Contacts"}
       </button>
-      {contacts.length > 0 && (
-        <ul>
-          {contacts.map((contact, index) => (
-            <li key={index}>
-              <div>
-                <strong>
-                  {contact.name ? contact.name : "No Name"}
-                </strong>
-                <div>{contact.tel ? contact.tel[0] : "No Phone"}</div>
-                <div>{contact.icon}</div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      {contacts.length > 0 &&
+        contacts.map((contact, index) => (
+          <Box>
+            {contact.icon ? contact.icon : <Avatar>{contact.name[0].charAt(0).toUpperCase()}</Avatar>}
+            <Box>
+              <Typography variant="subtitle1">{contact.name}</Typography>
+              <Typography variant="body1">{contact.tel}</Typography>
+            </Box>
+          </Box>
+        ))}
     </div>
   );
 };
