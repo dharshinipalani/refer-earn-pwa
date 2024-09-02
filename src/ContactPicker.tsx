@@ -4,25 +4,26 @@ const ContactPicker: React.FC = () => {
   const [contacts, setContacts] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const handleSelectContacts = async () => {
-    if ("contacts" in navigator && "ContactsManager" in window) {
+    const handleSelectContacts = async () => {
+    setLoading(true);
+
+    if ('contacts' in navigator && 'ContactsManager' in window) {
       try {
-        setLoading(true);
-        const props = ["name", "email", "tel" , "icon"];
-        const selectedContacts = await (navigator as any).contacts.select(
-          props,
-          { multiple: true }
-        );
+        const props = ['name', 'tel', 'icon'];
+        const options = { multiple: true }; 
+        const selectedContacts = await (navigator as any).contacts.select(props, options);
+
         setContacts(selectedContacts);
       } catch (error) {
         console.error("Error fetching contacts:", error);
-      } finally {
-        setLoading(false);
       }
     } else {
-      console.error("Contacts API not supported");
+      console.warn("The Contacts API is not supported on this device.");
     }
-  };
+
+    setLoading(false);
+  };   
+    
 
   return (
     <div>
